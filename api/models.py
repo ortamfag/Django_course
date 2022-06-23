@@ -1,11 +1,13 @@
 from django.db import models
 from user.models import User
+from simple_history.models import HistoricalRecords
 
 
 class Student(models.Model):
     user = models.OneToOneField(User, verbose_name='User', on_delete=models.CASCADE)
     projects = models.ManyToManyField("Project", verbose_name='Проекты')
     group = models.ForeignKey("Group", verbose_name='Группа', on_delete=models.CASCADE)
+    history = HistoricalRecords()
 
     def __str__(self):
         return str(self.user)
@@ -18,6 +20,7 @@ class Student(models.Model):
 class Project(models.Model):
     name = models.CharField(verbose_name='Название проекта', max_length=255)
     description = models.TextField(verbose_name='Описание проекта')
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.name
@@ -29,6 +32,7 @@ class Project(models.Model):
 
 class Group(models.Model):
     number = models.CharField(verbose_name='Номер группы', max_length=50)
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.number

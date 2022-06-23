@@ -35,6 +35,7 @@ class User(AbstractBaseUser):
     USERNAME_FIELD = 'email'
 
     objects = UserManager()
+    history = HistoricalRecords()
 
     def has_perm(self, perm, obj=None):
         return self.is_superuser
