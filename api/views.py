@@ -3,12 +3,14 @@ import django_filters.rest_framework
 from django.db.models import Q
 from api.serializers import GroupSerializer, ProjectSerializer, StudentSerializer
 from api.models import Group, Project, Student
+from rest_framework import filters
 
 class StudentViewSet(ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
-    filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
+    filter_backends = [filters.OrderingFilter]
     filterset_fields = ['user', 'projects', 'group']
+    ordering_fields = ['user']
 
 
 class GroupViewSet(ModelViewSet):
